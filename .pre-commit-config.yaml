@@ -1,0 +1,30 @@
+# Use 'pre-commit autoupdate' to keep these versions current
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0
+    hooks:
+      # Linter: Fixes imports and simple bugs
+      - id: ruff
+        args: [ --fix ]
+      # Formatter: Ensures consistent spacing/quotes
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: basedpyright
+        name: basedpyright
+        # 'uv run' ensures we use the project's virtualenv and its dependencies
+        entry: uv run basedpyright
+        language: system
+        types: [python]
+        # Prevents running once per file, which is much faster
+        pass_filenames: false

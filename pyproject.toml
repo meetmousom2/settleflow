@@ -1,0 +1,49 @@
+[project]
+name = "settleflow"
+version = "0.1.0"
+description = "Autonomous agentic AI for travel insurance claim adjustment"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.128.0",
+    "httpx>=0.28.1",
+    "langgraph>=1.0.5",
+    "litellm>=1.80.11",
+    "loguru>=0.7.3",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "uvicorn>=0.40.0",
+]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.36.2",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "ruff>=0.14.10",
+]
+
+# --- TOOL CONFIGURATION ---
+
+[tool.ruff]
+# The standard for modern Python
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# E: pycodestyle, F: Pyflakes, I: isort (import sorting), B: bugbear
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"] # Line length is handled by the formatter
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.basedpyright]
+# 'basic' is good for starting; 'strict' is for later
+typeCheckingMode = "basic"
+pythonVersion = "3.12"
+venvPath = "."        # Look in the current directory
+venv = ".venv"        # For a folder named .venv
+# Ensures it doesn't try to type-check your library dependencies
+exclude = ["**/node_modules", "**/__pycache__", ".venv"]
